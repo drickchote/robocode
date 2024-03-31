@@ -1,0 +1,13 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "robots",
+        "robocode/robots",
+        "robocode/compilers",
+        "robocode"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "robocode/libs/**/*.jar",
+    ],
+}

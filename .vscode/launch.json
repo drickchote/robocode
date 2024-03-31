@@ -1,0 +1,62 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Launch Robocode",
+            "type": "java",
+            "request": "launch",
+            "mainClass": "robocode.Robocode",
+            "args": [
+                "-battle",
+                "${input:battleArgument}"
+            ],
+            "vmArgs": [
+                "-Xmx512M",
+                "-Xdock:name=Robocode",
+                "-Xdock:icon=robocode.ico",
+                "-XX:+IgnoreUnrecognizedVMOptions",
+                "-Djava.security.manager=allow",
+                "-Dsun.io.useCanonCaches=false",
+                "-Ddebug=true",
+                "--add-opens=java.base/sun.net.www.protocol.jar=ALL-UNNAMED",
+                "--add-opens=java.base/java.lang.reflect=ALL-UNNAMED",
+                "--add-opens=java.desktop/javax.swing.text=ALL-UNNAMED",
+                "--add-opens=java.desktop/sun.awt=ALL-UNNAMED"
+            ],
+            "env": {
+                "JAVA_HOME": "/etc/jdk-21.0.2/usr/lib/jvm/jdk-11-oracle-x64",
+                "PATH": "${PATH}:${JAVA_HOME}/bin"
+            },
+            "cwd": "${workspaceFolder}",
+        },
+    ],
+    "inputs": [
+        {
+            "id": "battleArgument",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                "command": "ls -1 .",
+                "cwd": "${workspaceFolder}/battles",
+                "env": {
+                    "WORKSPACE": "${workspaceFolder[0]}",
+                    "FILE": "${file}",
+                    "PROJECT": "${workspaceFolderBasename}"
+                }
+            },
+        }
+	],
+	"tasks": [
+		{
+			"type": "java (build)",
+			"paths": [
+				"${workspace}"
+			],
+			"isFullBuild": true,
+			"group": "build",
+			"problemMatcher": [],
+			"label": "java (build): Build Workspace",
+			"detail": "$(tools) Build all the Java projects in workspace."
+		}
+	]
+}
