@@ -64,7 +64,8 @@ public class Crazy extends AdvancedRobot {
 	}
 
 	/**
-	 * onHitWall:  Handle collision with wall.
+		execute();
+	 * onHitWall:  Handle collision with wall.e
 	 */
 	public void onHitWall(HitWallEvent e) {
 		// Bounce off!
