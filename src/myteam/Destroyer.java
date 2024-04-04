@@ -25,7 +25,7 @@ public class Destroyer extends AdvancedRobot {
 		addCustomEvent(new SafeArea(this));
 
 		setTurnGunRightRadians(Double.POSITIVE_INFINITY);
-
+		// goAfterIt();
 		while (true) {
 			move();
 		}
@@ -48,9 +48,7 @@ public class Destroyer extends AdvancedRobot {
 
 
 	public void onHitWall(HitWallEvent e) {
-		followEnemy = true;
-		clearAllEvents();
-		reverseDirection();
+		// reverseDirection();
 	}
 
 
@@ -66,6 +64,18 @@ public class Destroyer extends AdvancedRobot {
 
 		setTurnRightRadians(Utils.normalRelativeAngle(radarTurn));
 	}
+
+	// public void goAfterIt(){
+
+	// 	double supR = Math.PI /4 -  getHeadingRadians();  
+	// 	double infR = 3*Math.PI /4 -  getHeadingRadians();  
+	// 	double supL = 7*Math.PI /4 -  getHeadingRadians();  
+	// 	double infL = 5*Math.PI /4 -  getHeadingRadians();  
+
+	// 	setTurnRightRadians(Utils.normalRelativeAngle(infL));
+	// }
+
+
 
 	
 	public void onScannedRobot(ScannedRobotEvent event) {
@@ -111,9 +121,41 @@ public class Destroyer extends AdvancedRobot {
 	}
 
 	public void onCustomEvent(CustomEvent e){
-		out.println(e.getCondition().getName());
+
+
+		double supR = Math.PI /4 -  getHeadingRadians();  
+		double infR = 3*Math.PI /4 -  getHeadingRadians();  
+		double supL = 7*Math.PI /4 -  getHeadingRadians();  
+		double infL = 5*Math.PI /4 -  getHeadingRadians();  
+		
+
+		double turnRight = 0;
+
 		if(e.getCondition().getName() == "myteam.SafeArea"){
-			followEnemy = true;
+			clearAllEvents();
+			boolean isLeft = getX() < getBattleFieldWidth() /2;
+			boolean isBottom = getY() < getBattleFieldHeight() /2;
+
+			if(isLeft && isBottom){
+				turnRight = supR;
+				out.println("supR");
+			} else if(isLeft && !isBottom){
+				turnRight = infR;
+				out.println("infR");
+
+			} else if(!isLeft && !isBottom){
+				turnRight = infL;
+				out.println("infL");
+
+			} else {
+				turnRight = supL;
+				out.println("supL");
+
+			}
 		}
+
+		setTurnRightRadians(Utils.normalRelativeAngle(turnRight));
+		setTurnGunLeft(Utils.normalRelativeAngle(turnRight));
+
 	}
 }
