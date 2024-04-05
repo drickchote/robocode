@@ -66,7 +66,7 @@ public class SafeArea extends Condition {
         double y = robot.getY();
 
         // Define uma margem de segurança para evitar a parede
-        double safeArea = 50.0;
+        double safeArea = 200.0;
 
         // Calcula a distância até as paredes
         double distanceLeft = x;
@@ -83,7 +83,6 @@ public class SafeArea extends Condition {
             // Se não estiver próximo da parede, continua o movimento em círculos
 			return false;	
         }
-		//return (robot.getTurnRemaining() == 0);
 	}
 
 	/**

@@ -25,6 +25,9 @@ public class Destroyer extends AdvancedRobot {
 		addCustomEvent(new SafeArea(this));
 
 		setTurnGunRightRadians(Double.POSITIVE_INFINITY);
+
+		setAdjustGunForRobotTurn(true);
+
 		// goAfterIt();
 		while (true) {
 			move();
@@ -33,6 +36,8 @@ public class Destroyer extends AdvancedRobot {
 
 	public void move(){
 			followEnemy = false;
+
+			
 			setAhead(40000);
 			movingForward = true;
 			setTurnRight(90);
@@ -47,9 +52,6 @@ public class Destroyer extends AdvancedRobot {
 
 
 
-	public void onHitWall(HitWallEvent e) {
-		// reverseDirection();
-	}
 
 
 
@@ -65,24 +67,13 @@ public class Destroyer extends AdvancedRobot {
 		setTurnRightRadians(Utils.normalRelativeAngle(radarTurn));
 	}
 
-	// public void goAfterIt(){
-
-	// 	double supR = Math.PI /4 -  getHeadingRadians();  
-	// 	double infR = 3*Math.PI /4 -  getHeadingRadians();  
-	// 	double supL = 7*Math.PI /4 -  getHeadingRadians();  
-	// 	double infL = 5*Math.PI /4 -  getHeadingRadians();  
-
-	// 	setTurnRightRadians(Utils.normalRelativeAngle(infL));
-	// }
-
-
 
 	
 	public void onScannedRobot(ScannedRobotEvent event) {
 		double enemyDistance = event.getDistance();
-	
 
 		if(followEnemy){
+			lockRadarOnEnemy(event);
 			goAfterIt(event);
 		} else {
 			lockRadarOnEnemy(event);
@@ -92,15 +83,6 @@ public class Destroyer extends AdvancedRobot {
 		
 	}
 
-	public void reverseDirection() {
-		if (movingForward) {
-			setBack(40000);
-			movingForward = false;
-		} else {
-			setAhead(40000);
-			movingForward = true;
-		}
-	}
 
 	public int getBestShot(double distance){
 		if(distance < 100){
@@ -113,15 +95,7 @@ public class Destroyer extends AdvancedRobot {
 	}
 
 
-	public void onHitRobot(HitRobotEvent e) {
-		if (e.isMyFault()) {
-			followEnemy = false;
-			reverseDirection();
-		}
-	}
-
 	public void onCustomEvent(CustomEvent e){
-
 
 		double supR = Math.PI /4 -  getHeadingRadians();  
 		double infR = 3*Math.PI /4 -  getHeadingRadians();  
@@ -155,7 +129,6 @@ public class Destroyer extends AdvancedRobot {
 		}
 
 		setTurnRightRadians(Utils.normalRelativeAngle(turnRight));
-		setTurnGunLeft(Utils.normalRelativeAngle(turnRight));
 
 	}
 }
