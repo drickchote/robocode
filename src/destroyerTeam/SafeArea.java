@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * https://robocode.sourceforge.io/license/epl-v10.html
  */
-package myteam;
+package destroyerTeam;
 
 import robocode.*;
 
@@ -66,7 +66,7 @@ public class SafeArea extends Condition {
         double y = robot.getY();
 
         // Define uma margem de segurança para evitar a parede
-        double safeArea = 200.0;
+        double safeArea = 200;
 
         // Calcula a distância até as paredes
         double distanceLeft = x;
